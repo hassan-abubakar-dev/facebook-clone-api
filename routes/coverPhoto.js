@@ -1,6 +1,6 @@
 import express from 'express';
-import { createCoverPhoto, deleteCoverPhoto, editeCoverPhoto, getCoverPhoto } from '../contriollers/coverPhotos.js';
-import { protectRoutes } from '../contriollers/auths.js';
+import { createCoverPhoto, deleteCoverPhoto, editeCoverPhoto, getCoverPhoto } from '../controllers/coverPhotos.js';
+import { protectRoutes } from '../controllers/auths.js';
 import upload from '../middleware/upload.js';
 
 const router = express.Router();

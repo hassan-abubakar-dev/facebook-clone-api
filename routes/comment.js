@@ -1,6 +1,6 @@
 import express from 'express';
-import { protectRoutes } from '../contriollers/auths.js';
-import { createComment } from '../contriollers/comment.js';
+import { protectRoutes } from '../controllers/auths.js';
+import { createComment } from '../controllers/comment.js';
 
 const router = express.Router();
 

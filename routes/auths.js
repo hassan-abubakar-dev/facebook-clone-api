@@ -1,6 +1,6 @@
 import express from 'express';
-import { changePassword, loggingUser, logOutUser, registerUser, requestChangePassword, requestNewAccessToken, requestNewVerificationCode } from '../contriollers/auths.js';
-import { verifyChangePasswordCode, verifyNewUser } from '../contriollers/verifiCation.js';
+import { changePassword, loggingUser, logOutUser, registerUser, requestChangePassword, requestNewAccessToken, requestNewVerificationCode } from '../controllers/auths.js';
+import { verifyChangePasswordCode, verifyNewUser } from '../controllers/verifiCation.js';
 import validate from '../middleware/globalValidation.js';
 import { changePasswordSchema, loggingUserSchema, registerUserSchema, verifyEmail, verifySchema } from '../validations/auths.js';
 

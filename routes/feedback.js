@@ -1,6 +1,6 @@
 import express from 'express';
-import { createFeedback, getAllFeedback } from '../contriollers/feedback.js';
-import { protectRoutes, restrictTo } from '../contriollers/auths.js';
+import { createFeedback, getAllFeedback } from '../controllers/feedback.js';
+import { protectRoutes, restrictTo } from '../controllers/auths.js';
 
 
 const router = express.Router();

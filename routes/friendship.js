@@ -1,6 +1,6 @@
 import express from 'express';
-import { addFriend, cancelFriendRequest, deleteFriend, deleteFriendRequest, getAllfriends, getFriendRequest, receiveFriend } from '../contriollers/friendship.js';
-import { protectRoutes } from '../contriollers/auths.js';
+import { addFriend, cancelFriendRequest, deleteFriend, deleteFriendRequest, getAllfriends, getFriendRequest, receiveFriend } from '../controllers/friendship.js';
+import { protectRoutes } from '../controllers/auths.js';
 
 const router = express.Router();
 

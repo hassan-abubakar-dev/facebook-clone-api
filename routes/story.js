@@ -1,7 +1,7 @@
 import express from 'express';
-import { protectRoutes } from '../contriollers/auths.js';
+import { protectRoutes } from '../controllers/auths.js';
 import upload from '../middleware/upload.js';
-import { createStory, getAllFriendStories } from '../contriollers/story.js';
+import { createStory, getAllFriendStories } from '../controllers/story.js';
 
 const router = express.Router();
 

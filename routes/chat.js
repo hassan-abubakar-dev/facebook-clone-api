@@ -1,6 +1,6 @@
 import express from 'express';
-import { getChats, getRoomId } from '../contriollers/chat.js';
-import { protectRoutes } from '../contriollers/auths.js';
+import { getChats, getRoomId } from '../controllers/chat.js';
+import { protectRoutes } from '../controllers/auths.js';
 
 const router = express.Router();
 

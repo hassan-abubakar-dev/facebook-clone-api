@@ -1,6 +1,6 @@
 import express from 'express';
-import { protectRoutes } from '../contriollers/auths.js';
-import { getLikes, toggleLike } from '../contriollers/like.js';
+import { protectRoutes } from '../controllers/auths.js';
+import { getLikes, toggleLike } from '../controllers/like.js';
 
 const router = express.Router();
 /**

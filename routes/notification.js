@@ -1,6 +1,6 @@
 import express from 'express';
-import { protectRoutes } from '../contriollers/auths.js';
-import { getNotification } from '../contriollers/notification.js';
+import { protectRoutes } from '../controllers/auths.js';
+import { getNotification } from '../controllers/notification.js';
 
 const router = express.Router();
 

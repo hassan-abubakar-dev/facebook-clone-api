@@ -8,7 +8,7 @@ export const registerUserSchema = joi.object({
                 'string.empty':'first name must not be empty',
                 'string.min':'first name must be atleast 3 character length',
                 'string.max':'first name must be lessthan 35 or 35 character length',
-                'string.require': 'name must be provided'
+                'any.require': 'name must be provided'
             }),
 
     surName: 
@@ -18,28 +18,28 @@ export const registerUserSchema = joi.object({
                 'string.empty':'surName must not be empty',
                 'string.min':'surName must be atleast 3 character length',
                 'string.max':'surName must be lessthan 35 or 35 character length',
-                'string.require': 'surName must be provided'
+                'anyrequire': 'surName must be provided'
             }),
        
-    dateOfBirth: 
-            joi.string().max(35).required()
-            .messages({
-                'string.base':'date of birth must be text',
-                'string.empty':'date of birth must not be empty',
-                'string.max':'date of birth must be lessthan 35 or 35 character length',
-                'string.require': 'date of birth must be provided'
-            }),
+   
+    dateOfBirth: joi.string().max(35).required()
+        .messages({
+           
+            'string.empty': 'Date of birth must not be empty',
+            'string.max': 'Date of birth must be less than or equal to 35 characters',
+            'any.required': 'Date of birth must be provided'
+        }),
 
      gender: 
-            joi.string().optional()
+            joi.string().optional().allow(null, '')
             .messages({
                'string.base':'gender must be text',
             }),  
 
     pronoun: 
-            joi.string().optional()   
+            joi.string().optional().allow(null, '')   
             .messages({
-                'string.base':'date of birth must be text',
+                'string.base':'pronoun must be text',
             }),
  
     
@@ -51,7 +51,7 @@ export const registerUserSchema = joi.object({
                 'string.min':'email must be atleast 10 character length',
                 'string.max':'email must be lessthan 45 or 45 character length',
                 'string.email':'email must be valid email',
-                'string.require': 'email must be provided'
+                'any.require': 'email must be provided'
             }),
 
     
@@ -62,7 +62,7 @@ export const registerUserSchema = joi.object({
                 'string.empty':'password must not be empty',
                 'string.min':'password must be atleast 6 character length',
                 'string.max':'password must be lessthan 35 or 35 character length',
-                'string.require': 'password must be provided'
+                'any.require': 'password must be provided'
             }),
 });
 
@@ -101,4 +101,46 @@ export const loggingUserSchema = joi.object({
                 'string.require': 'password must be provided'
             }),
 
-})
+});
+
+export const changePasswordSchema = joi.object({
+     password: 
+            joi.string().min(6).max(35).required()
+            .messages({
+                'string.base':'password must be text',
+                'string.empty':'password must not be empty',
+                'string.min':'password must be atleast 6 character length',
+                'string.max':'password must be lessthan 35 or 35 character length',
+                'string.require': 'password must be provided'
+            }),
+        comfirmPassword: 
+             joi.string().min(6).max(35).required()
+            .messages({
+                'string.base':'password must be text',
+                'string.empty':'password must not be empty',
+                'string.min':'password must be atleast 6 character length',
+                'string.max':'password must be lessthan 35 or 35 character length',
+                'string.require': 'password must be provided'
+            }),
+
+        changePasswordToken: 
+            joi.string().required()
+            .messages({
+                'string.empty':'changePasswordToken must not be empty',
+                'string.require': 'changePasswordToken must be provided'
+            })
+});
+
+export const verifyEmail = joi.object({
+   
+    email: 
+            joi.string().min(10).max(45).email().required()
+            .messages({
+                'string.base':'email must be text',
+                'string.empty':'email must not be empty',
+                'string.min':'email must be atleast 10 character length',
+                'string.max':'email must be lessthan 45 or 45 character length',
+                'string.email':'email must be valid email',
+                'string.require': 'email must be provided'
+            })
+});

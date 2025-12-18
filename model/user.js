@@ -6,7 +6,7 @@ const User = dbConnection.define(
     {
         id: {
             type: DataTypes.UUID,
-            defaultValue: UUIDV4,
+            defaultValue: DataTypes.UUIDV4,
             primaryKey: true
         },
         firstName: {
@@ -39,14 +39,18 @@ const User = dbConnection.define(
             }
         },
         password: {
-            type: DataTypes.STRING(100),
+            type: DataTypes.STRING(100), 
             allowNull: false
         },
         isVerify: {
             type: DataTypes.BOOLEAN,
             defaultValue: false
+        },
+        role: {
+            type: DataTypes.ENUM('user', 'admin'),
+            defaultValue: 'user'
         }
-    },
+    },  
     {
         tableName: 'Users',
         timestamps: true

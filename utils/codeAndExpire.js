@@ -5,4 +5,4 @@ export const generateVerificationCode = () => {
 
   export const generateExpiryTime = () => {
         return  Date.now() + 5 * 60 * 1000
-  }
+  };

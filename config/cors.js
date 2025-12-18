@@ -1,9 +1,22 @@
 import cors from 'cors';
 
+const allowOrigins = ['http://localhost:5173', 'http://192.168.1.176:5173'];
+
 const corOptions = cors({
-    origin: ['http://localhost:5173', 'http://192.168.1.175:5173'],
+    origin: (origin, cb) => {
+            if(!origin){
+              return  cb(null, true) 
+            };
+            if(allowOrigins.includes(origin)){
+               return cb(null, true);
+            }
+            else{
+               return  cb(new Error('this origin is not allow in my backend', 400), false)
+            }
+        },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-    credentials: true
+    credentials: true,
+    allowedHeaders: ['content-Type', 'Authorization']
 });
 
 export default corOptions;

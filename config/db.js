@@ -1,6 +1,7 @@
 import { Sequelize } from "sequelize";
 import doten from 'dotenv'
-doten.config()
+doten.config();
+
 export const dbConnection = new Sequelize(
     process.env.DB_NAME,
     process.env.DB_USER,

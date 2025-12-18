@@ -1,5 +1,5 @@
 import { Server } from "socket.io";
-import ChatMessage from "../model/chatmessage.js";
+import ChatMessage from "../model/chatMessage.js";
 import ChatParticipant from "../model/chatParticipant.js";
 
 let io;

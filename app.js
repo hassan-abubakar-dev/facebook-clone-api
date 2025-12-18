@@ -2,7 +2,7 @@ import express from 'express';
 import http from 'http';
 import dotenv from 'dotenv';
 import { dbConnection, testConnection } from './config/db.js';
-import ChatMessage from './model/chatmessage.js';
+import ChatMessage from './model/chatMessage.js';
 import ChatParticipant from './model/chatParticipant.js';
 import ChatRoom from './model/chatRoom.js';
 import User from './model/user.js';

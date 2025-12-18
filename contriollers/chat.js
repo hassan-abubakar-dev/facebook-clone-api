@@ -1,4 +1,4 @@
-import ChatMessage from "../model/chatmessage.js";
+import ChatMessage from "../model/chatMessage.js";
 import ChatParticipant from "../model/chatParticipant.js";
 import ChatRoom from "../model/chatRoom.js";
 import AppError from "../utils/AppError.js"

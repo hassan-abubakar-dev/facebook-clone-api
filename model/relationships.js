@@ -9,7 +9,7 @@ import VerificationCode from "./verificationCode.js";
 import CoverPhoto from "./coverPhoto.js";
 import ChatParticipant from "./chatParticipant.js";
 import ChatRoom from "./chatRoom.js";
-import ChatMessage from "./chatmessage.js";
+import ChatMessage from "./chatMessage.js";
 import Notification from "./notification.js";
 import Feedback from "./feedback.js";
 

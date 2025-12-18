@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 import { dbConnection } from "../config/db.js";
 
 const VerificationCode = dbConnection.define(
-    'VerificationCode',
+    'verificationCode',
     {
         code: {
             type: DataTypes.STRING(6),
@@ -18,7 +18,7 @@ const VerificationCode = dbConnection.define(
         }
     },
     {
-        tableName: 'VerificationCodes',
+        tableName: 'verificationCodes',
         timestamps: true
     }
 );

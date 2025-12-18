@@ -6,7 +6,7 @@ import ChatMessage from './model/chatMessage.js';
 import ChatParticipant from './model/chatParticipant.js';
 import ChatRoom from './model/chatRoom.js';
 import User from './model/user.js';
-import VerificationCode from './model/verificationCode.js';
+import verificationCode from './model/verificationCode.js';
 import authsRouter from './routes/auths.js';
 import globalErrorHandler from './middleware/globalError.js';
 import security from './security/helmet.js';

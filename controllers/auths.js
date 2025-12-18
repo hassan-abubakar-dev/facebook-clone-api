@@ -3,10 +3,10 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import emailTransforter from "../config/email.js";
 import User from "../model/user.js";
-import VerificationCode from "../model/verificationCode.js";
+import verificationCode from "../model/verificationCode.js";
 import AppError from "../utils/AppError.js"
 import generateToken from "../utils/generateToken.js";
-import { generateExpiryTime, generateVerificationCode } from "../utils/codeAndExpire.js";
+import { generateExpiryTime, generateverificationCode } from "../utils/codeAndExpire.js";
 import Profile from "../model/profile.js";
 
 dotenv.config();
@@ -36,10 +36,10 @@ export const registerUser = async (req, res, next) => {
             password: hashPassword
         }, { transaction: t });
 
-        const verificationCode = generateVerificationCode();
+        const verificationCode = generateverificationCode();
         const expiryTime = generateExpiryTime();
 
-        await VerificationCode.create({
+        await verificationCode.create({
             code: verificationCode,
             expiryTime,
             userEmail: email
@@ -50,7 +50,7 @@ export const registerUser = async (req, res, next) => {
             await emailTransforter.sendMail({
                 from: `"${process.env.APP_NAME || 'Hassan App'}" <hassanabubakarmaiwada7@gmail.com>`,
                 to: email,
-                subject: 'Account Verification Code',
+                subject: 'Account verification Code',
                 html: `
     <h1>Verify your account</h1>
 
@@ -110,7 +110,7 @@ export const registerUser = async (req, res, next) => {
 
 
 
-export const requestNewVerificationCode = async (req, res, next) => {
+export const requestNewverificationCode = async (req, res, next) => {
     try {
         const { email } = req.body;
         const existingUser = await User.findOne({ where: { email } });
@@ -121,12 +121,12 @@ export const requestNewVerificationCode = async (req, res, next) => {
         //     return next(new AppError('this account is already verify, no need to request new code', 400))
         // } it has to be like this but i need to share this function to requet new code for change password
 
-        await VerificationCode.destroy({ where: { userEmail: email } });
+        await verificationCode.destroy({ where: { userEmail: email } });
 
-        const verificationCode = generateVerificationCode();
+        const verificationCode = generateverificationCode();
         const expiryTime = generateExpiryTime();
 
-        await VerificationCode.create({
+        await verificationCode.create({
             code: verificationCode,
             expiryTime: expiryTime,
             userEmail: email
@@ -339,10 +339,10 @@ export const requestChangePassword = async (req, res, next) => {
             return next(new AppError('this account is already is not verify', 400))
         }
 
-        const verificationCode = generateVerificationCode();
+        const verificationCode = generateverificationCode();
         const expiryTime = generateExpiryTime();
 
-        await VerificationCode.create({
+        await verificationCode.create({
             code: verificationCode,
             expiryTime: expiryTime,
             userEmail: email

@@ -11,22 +11,22 @@ export const verifyNewUser = async(req, res, next) => {
     try{
         const {verificationCode} = req.body;
    
-       const userVerificationCode =  await VerificationCode.findOne(
+       const userverificationCode =  await VerificationCode.findOne(
         {where: {code: verificationCode}}
     );
-        if(!userVerificationCode){
+        if(!userverificationCode){
            
            return next(new AppError('you was not get verification code try requeting verification code or expire', 401))
            
           
         }
 
-         if(Date.now() > userVerificationCode.expiryTime){
-            await userVerificationCode.destroy({where: {code: verificationCode}});
+         if(Date.now() > userverificationCode.expiryTime){
+            await userverificationCode.destroy({where: {code: verificationCode}});
             return next(new AppError('sorry your verification code was expire try requesting new one'));
         }
        const user = await User.findOne({
-            where: {email: userVerificationCode.userEmail}
+            where: {email: userverificationCode.userEmail}
         })
 
         user.isVerify = true;
@@ -99,22 +99,22 @@ export const verifyChangePasswordCode = async(req, res, next) => {
     try{
         const {verificationCode} = req.body;
    
-       const userVerificationCode =  await VerificationCode.findOne(
+       const userverificationCode =  await VerificationCode.findOne(
         {where: {code: verificationCode}}
     );
-        if(!userVerificationCode){
+        if(!userverificationCode){
            
            return next(new AppError('you was not get verification code try requeting verification code or it expire', 401))
            
           
         }
 
-         if(Date.now() > userVerificationCode.expiryTime){
-            await userVerificationCode.destroy({where: {code: verificationCode}});
+         if(Date.now() > userverificationCode.expiryTime){
+            await userverificationCode.destroy({where: {code: verificationCode}});
             return next(new AppError('sorry your verification code was expire try requesting new one'));
         };
 
-        const user = await User.findOne({where: {email: userVerificationCode.userEmail}});
+        const user = await User.findOne({where: {email: userverificationCode.userEmail}});
         const userId = user.id
 
         const changePasswordToken = generateToken(

@@ -5,7 +5,7 @@ import Profile from "./profile.js";
 import Story from "./story.js";
 import Comment from "./comment.js";
 import User from "./user.js";
-import VerificationCode from "./verificationCode.js";
+import verificationCode from "./verificationCode.js";
 import CoverPhoto from "./coverPhoto.js";
 import ChatParticipant from "./chatParticipant.js";
 import ChatRoom from "./chatRoom.js";
@@ -14,12 +14,12 @@ import Notification from "./notification.js";
 import Feedback from "./feedback.js";
 
 //user and veeificationcode
-User.hasOne(VerificationCode, {
+User.hasOne(verificationCode, {
     foreignKey: 'userEmail',
     sourceKey: 'email'
 });
 
-VerificationCode.belongsTo(User, {
+verificationCode.belongsTo(User, {
     foreignKey: 'userEmail',
     targetKey: 'email'
 }); 

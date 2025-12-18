@@ -1,6 +1,6 @@
 import express from 'express';
-import { changePassword, loggingUser, logOutUser, registerUser, requestChangePassword, requestNewAccessToken, requestNewVerificationCode } from '../controllers/auths.js';
-import { verifyChangePasswordCode, verifyNewUser } from '../controllers/verifiCation.js';
+import { changePassword, loggingUser, logOutUser, registerUser, requestChangePassword, requestNewAccessToken, requestNewverificationCode } from '../controllers/auths.js';
+import { verifyChangePasswordCode, verifyNewUser } from '../controllers/verification.js';
 import validate from '../middleware/globalValidation.js';
 import { changePasswordSchema, loggingUserSchema, registerUserSchema, verifyEmail, verifySchema } from '../validations/auths.js';
 
@@ -59,7 +59,7 @@ router.post('/register', validate(registerUserSchema), registerUser);
  *     tags: [auths]
  *     responses:
  *       200:
- *         description: Verification succeeded
+ *         description: verification succeeded
  */
 router.post('/verify', validate(verifySchema), verifyNewUser);
 
@@ -113,7 +113,7 @@ router.post('/refresh', requestNewAccessToken);
  *       201:
  *         description: New verification code sent to email
  */
-router.post('/request-new-code', requestNewVerificationCode);
+router.post('/request-new-code', requestNewverificationCode);
 
 /**
  * @swagger

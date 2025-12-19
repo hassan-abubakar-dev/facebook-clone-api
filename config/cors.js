@@ -1,6 +1,6 @@
 import cors from 'cors';
 
-const allowOrigins = ['http://localhost:5173', 'https://facebook-clone-frontend-delta.vercel.app', 'https://snazzy-dusk-a9ca96.netlify.app']; 
+const allowOrigins = ['http://localhost:5173', 'https://facebook-clone-frontend-delta.vercel.app', 'https://facebook-clone-frontend-n1503wj1f.vercel.app']; 
 
 const corOptions = cors({
     origin: (origin, cb) => {

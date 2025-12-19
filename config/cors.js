@@ -1,6 +1,6 @@
 import cors from 'cors';
 
-const allowOrigins = ['http://localhost:5173', 'http://192.168.1.176:5173'];
+const allowOrigins = ['http://localhost:5173', 'http://192.168.1.175:5173']; 
 
 const corOptions = cors({
     origin: (origin, cb) => {

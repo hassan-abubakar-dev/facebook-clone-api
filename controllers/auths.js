@@ -3,10 +3,10 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import emailTransforter from "../config/email.js";
 import User from "../model/user.js";
-import verificationCode from "../model/verificationCode.js";
+import VerificationCode from "../model/verificationCode.js";
 import AppError from "../utils/AppError.js"
 import generateToken from "../utils/generateToken.js";
-import { generateExpiryTime, generateverificationCode } from "../utils/codeAndExpire.js";
+import { generateExpiryTime, generateVerificationCode } from "../utils/codeAndExpire.js";
 import Profile from "../model/profile.js";
 
 dotenv.config();
@@ -36,10 +36,10 @@ export const registerUser = async (req, res, next) => {
             password: hashPassword
         }, { transaction: t });
 
-        const verificationCode = generateverificationCode();
+        const verificationCode = generateVerificationCode();
         const expiryTime = generateExpiryTime();
 
-        await verificationCode.create({
+        await VerificationCode.create({
             code: verificationCode,
             expiryTime,
             userEmail: email
@@ -110,7 +110,7 @@ export const registerUser = async (req, res, next) => {
 
 
 
-export const requestNewverificationCode = async (req, res, next) => {
+export const requestNewVerificationCode = async (req, res, next) => {
     try {
         const { email } = req.body;
         const existingUser = await User.findOne({ where: { email } });
@@ -123,10 +123,10 @@ export const requestNewverificationCode = async (req, res, next) => {
 
         await verificationCode.destroy({ where: { userEmail: email } });
 
-        const verificationCode = generateverificationCode();
+        const verificationCode = generateVerificationCode();
         const expiryTime = generateExpiryTime();
 
-        await verificationCode.create({
+        await VerificationCode.create({
             code: verificationCode,
             expiryTime: expiryTime,
             userEmail: email
@@ -169,7 +169,8 @@ export const loggingUser = async (req, res, next) => {
     try {
         const { email, password } = req.body;
         const existingUser = await User.findOne({ where: { email } });
-
+        console.log(email, password);
+        
         if (!existingUser) {
             return next(new AppError('user is not found create new account', 400));
         }
@@ -339,10 +340,10 @@ export const requestChangePassword = async (req, res, next) => {
             return next(new AppError('this account is already is not verify', 400))
         }
 
-        const verificationCode = generateverificationCode();
+        const verificationCode = generateVerificationCode();
         const expiryTime = generateExpiryTime();
 
-        await verificationCode.create({
+        await VerificationCode.create({
             code: verificationCode,
             expiryTime: expiryTime,
             userEmail: email

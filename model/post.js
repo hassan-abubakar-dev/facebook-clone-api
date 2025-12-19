@@ -28,7 +28,12 @@ const Post = dbConnection.define(
         userId: {
             type: DataTypes.UUID,
             allowNull: false
-        }
+        },
+         requestId: {
+            type: DataTypes.UUID, 
+            allowNull: false,
+            unique: true
+         }
     },
     {
         tableName: 'posts',

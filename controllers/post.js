@@ -11,7 +11,8 @@ import CoverPhoto from "../model/coverPhoto.js";
 
 export const createPost = async (req, res, next) => {
   try {
-    const { content, postColor } = req.body;
+    const { content, postColor, requestId } = req.body;
+    
     const userId = req.user.id;
 
     let uploaded = null;
@@ -32,6 +33,7 @@ export const createPost = async (req, res, next) => {
             image: uploaded.secure_url,
             publicId: uploaded.public_id,
             userId,
+            requestId
           });
 
           return res.status(201).json({
@@ -48,6 +50,7 @@ export const createPost = async (req, res, next) => {
         image: null,
         publicId: null,
         userId,
+        requestId
       });
 
       return res.status(201).json({

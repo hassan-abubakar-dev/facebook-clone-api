@@ -69,16 +69,16 @@ httpServer.listen(PORT, '0.0.0.0', () => {
 });    
 
 
+
 testConnection();   
 (async()=>{
     try{
-       await dbConnection.sync({alter: true});   
+       await dbConnection.sync();     
         await createAdmin();
         console.log('all models are sync successfully');  
       
-    }     
+    }   
     catch(err){
         console.log(err.message); 
-        
     }
 })();

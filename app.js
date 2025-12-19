@@ -56,7 +56,7 @@ app.use('/api/notification', notificationRouter);
 app.use('/api', postRouter);
 app.use('/api', likeRouter);
 app.use('/api', commentRouter);
-app.use('/api', storyRouter);
+app.use('/api', storyRouter); 
 app.use('/api', feedbackRouter)
 
 

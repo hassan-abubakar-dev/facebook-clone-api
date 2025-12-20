@@ -98,7 +98,7 @@ export const registerUser = async (req, res, next) => {
         } catch (emailErr) {
             await t.rollback(); // rollback if email fails
             console.error(emailErr);
-            return next(new AppError('Failed to send verification email. Please try again.', 400));
+            return next(new AppError(`Failed to send verification email. Please try again. ${emailErr}`, 400));
         }
 
     } catch (error) {

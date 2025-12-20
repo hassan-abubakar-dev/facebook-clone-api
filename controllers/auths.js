@@ -159,9 +159,9 @@ export const requestNewVerificationCode = async (req, res, next) => {
         }
 
     }
-    catch (err) {
-        console.error(err);
-        next(new AppError(err.message, 500));
+    catch (error) {
+        console.error(error);
+        next(new AppError(error.message, 500));
     };
 };
 
@@ -225,7 +225,7 @@ export const loggingUser = async (req, res, next) => {
 
     }
     catch (error) {
-        console.error(err);
+        console.error(error);
         next(new AppError(error.message, 500));
     }
 }
@@ -282,7 +282,7 @@ export const protectRoutes = async (req, res, next) => {
 
     }
     catch (error) {
-        console.error(err);
+        console.error(error);
         next(new AppError(error.message, 500));
     };
 };
@@ -321,7 +321,7 @@ export const requestNewAccessToken = async (req, res, next) => {
         });
     }
     catch (error) {
-        console.error(err);
+        console.error(error);
         next(new AppError(error.message, 500));
     };
 };
@@ -383,11 +383,13 @@ export const requestChangePassword = async (req, res, next) => {
 
         }
         catch (err) {
+            console.error(err);
             next(new AppError(err.message, 400))
         }
 
     }
     catch (err) {
+         console.error(err);
         next(new AppError(err.message, 500));
     };
 };

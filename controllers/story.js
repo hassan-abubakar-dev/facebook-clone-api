@@ -67,6 +67,7 @@ export const createStory = async (req, res, next) => {
       new AppError("Story must contain either text or image", 400)
     );
   } catch (error) {
+    console.error(error)
     next(new AppError(error.message, 500));
   }
 };

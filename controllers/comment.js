@@ -57,7 +57,7 @@ export const createComment = async (req, res, next) => {
 
 
 // ➤ GET ALL COMMENTS FOR A POST
-export const getPostComments = async (req, res) => {
+export const getPostComments = async (req, res, next) => {
   try {
     const { postId } = req.params;
 
@@ -79,7 +79,7 @@ export const getPostComments = async (req, res) => {
 
   } catch (err) {
      console.error(err);
-    res.status(500).json({ message: "Server error", error: err });
+   next(new AppError('Server error', 500))
   }
 };
 

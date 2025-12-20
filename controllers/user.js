@@ -95,6 +95,7 @@ export const getUsers = async(req, res, next) => {
         });
     }
     catch(err){
+        console.error(err);
         next(new AppError(err.message, 500));
     };
 };
@@ -133,7 +134,7 @@ export const getCurrentUser = async(req, res, next) => {
     }
     catch(err){
         
-        
+        console.error(err)
         next(new AppError(err.message, 500));
     };
 };

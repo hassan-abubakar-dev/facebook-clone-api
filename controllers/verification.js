@@ -90,6 +90,7 @@ export const verifyNewUser = async(req, res, next) => {
     }
 
     catch(error){
+        console.error(error)
         next(new AppError(error.message, 500))
     }
 };
@@ -132,6 +133,7 @@ export const verifyChangePasswordCode = async(req, res, next) => {
     }
 
     catch(error){
+        console.error(error)
         next(new AppError(error.message, 500))
     }
 };

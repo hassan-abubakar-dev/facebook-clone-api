@@ -61,6 +61,7 @@ export const getCoverPhoto = async(req, res, next) => {
         });
     }
     catch(error){
+      console.error(error)
         next(new AppError(error.message, 500));
     };
 };

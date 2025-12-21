@@ -207,7 +207,8 @@ export const loggingUser = async (req, res, next) => {
         );
 
         const profile = await Profile.findOne({ where: { userId: existingUser.id } });
-
+        console.log(refreshToken);
+        
         res.status(200).cookie('refreshToken', refreshToken,
             {
                 httpOnly: true,

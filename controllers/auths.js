@@ -8,13 +8,14 @@ import AppError from "../utils/AppError.js"
 import generateToken from "../utils/generateToken.js";
 import { generateExpiryTime, generateVerificationCode } from "../utils/codeAndExpire.js";
 import Profile from "../model/profile.js";
-
+import { dbConnection } from "../config/db.js";
+import { sendVerificationEmail } from "../config/sendGridEmail.js";
 dotenv.config();
 
-import { dbConnection } from "../config/db.js";
+
 
 export const registerUser = async (req, res, next) => {
-    const t = await dbConnection.transaction(); // start transaction
+    const t = await dbConnection.transaction();
     try {
         const { firstName, surName, dateOfBirth, gender, pronoun, email, password } = req.body;
 
@@ -47,12 +48,50 @@ export const registerUser = async (req, res, next) => {
 
         // Try sending email, if fails it will rollback
         try {
-            await emailTransforter.sendMail({
-                from: `"${process.env.APP_NAME || 'Hassan App'}" <hassanabubakarmaiwada7@gmail.com>`,
-                to: email,
-                subject: 'Account verification Code',
-                html: `
-    <h1>Verify your account</h1>
+//             await emailTransforter.sendMail({
+//                 from: `"${process.env.APP_NAME || 'Hassan App'}" <hassanabubakarmaiwada7@gmail.com>`,
+//                 to: email,
+//                 subject: 'Account verification Code',
+//                 html: `
+    // <h1>Verify your account</h1>
+
+    // <h2>Hi ${firstName},</h2>
+
+    // <p>Thank you for registering.</p>
+    // <p>Please enter the verification code below to complete your registration:</p>
+
+    // <div style="margin: 20px 0;">
+    //   <span style="
+    //     display: inline-block;
+    //     padding: 12px 24px;
+    //     border: 1px solid #198754;
+    //     font-size: 20px;
+    //     font-weight: bold;
+    //     color: #198754;
+    //     letter-spacing: 2px;
+    //   ">
+    //     ${verificationCode}
+    //   </span>
+    // </div>
+
+    // <p><strong>Do not share this code with anyone.</strong></p>
+    // <p>If someone asks for this code, they may be trying to access your account.</p>
+
+    // <p>Thanks,<br/>${process.env.APP_NAME || 'Hassan App'} Security Team</p>
+
+    // <p>
+    //   For more information, visit
+    //   <a href="https://personal-portfolio-tau-jade.vercel.app/">
+    //     our support page
+    //   </a>
+    // </p>
+//   `
+//             });
+
+            await sendVerificationEmail(
+        email,
+        'Account verification Code',
+    ` <h1>Verify your account</h1>
 
     <h2>Hi ${firstName},</h2>
 
@@ -83,9 +122,8 @@ export const registerUser = async (req, res, next) => {
       <a href="https://personal-portfolio-tau-jade.vercel.app/">
         our support page
       </a>
-    </p>
-  `
-            });
+    </p>`
+);
 
 
             await t.commit(); // commit only after email sent
@@ -95,10 +133,10 @@ export const registerUser = async (req, res, next) => {
                 message: `Welcome ${firstName}, check your email. We've sent you a verification code.`
             });
 
-        } catch (emailErr) {
+        } catch (sendGridError) {
             await t.rollback(); // rollback if email fails
-            console.error('emailErr', emailErr);
-            return next(new AppError(`Failed to send verification email. Please try again. ${emailErr}`, 400));
+            console.error('sendGridError', sendGridError);
+            return next(new AppError(`Failed to send verification email. Please try again. ${sendGridError}`, 400));
         }
 
     } catch (error) {
@@ -135,18 +173,28 @@ export const requestNewVerificationCode = async (req, res, next) => {
         const user = await User.findOne({ where: { email } })
 
         try { // i use try in case if user not connect to internet instead of crashing the system
-            await emailTransforter.sendMail({
-                from: process.env.APP_NAME || 'Hassan special facebook clone',
-                to: `${email}`,
-                subject: 'verification code',
-                html:
-                    `
+            // await emailTransforter.sendMail({
+            //     from: process.env.APP_NAME || 'Hassan special facebook clone',
+            //     to: `${email}`,
+            //     subject: 'verification code',
+            //     html:
+                //     `
+                //     <h2>hi ${user.firstName}</h2>
+                //     <P>${verificationCode}</p>
+                
+                // `
+            // });
+
+             await sendVerificationEmail(
+                email,
+                'verification code',
+                 `
                     <h2>hi ${user.firstName}</h2>
                     <P>${verificationCode}</p>
                 
                 `
-            });
 
+             );
             res.status(200).json({
                 status: 'success',
                 message: `welcome ${user.firstName} check your email we've sended you verification code`
@@ -351,31 +399,52 @@ export const requestChangePassword = async (req, res, next) => {
 
         const user = await User.findOne({ where: { email } })
 
-        try { // i use try in case if user not connect to internet instead of crashing the system
-            await emailTransforter.sendMail({
-                from: 'hassanabubakarmaiwada7@gmail.com',
-                to: `${email}`,
-                subject: 'verification code',
-                html: `   
-                    <h1>One more step to verify your account to change password</h1>
-                    <h2>Hi ${user.firstName}</h2>
-                    <p>We got your request to change your pasword. Enter this code in the app::</p>
-                    <button 
-                        style="padding: 15px 350px; color: blue; font-size: 20px">
-                           ${verificationCode}
-                    </button>
-                    <h3>Don't share this code with anyone.</h3>
-                    <h3>If someone asks for this code</h3>
-                    <p>Don't share this code with anyone, especially if they tell you they work for our Facebook or Meta. They may be trying to hack your account.</p>
-                    <h2>Thanks,</h2>
-                    <h2>Facebook Security</h2>
-                    <h2>For more information contact us <a href="https://personal-portfolio-tau-jade.vercel.app/">
-  Visit our support page
-</a>
-                `
+        try { 
+            // i use try in case if user not connect to internet instead of crashing the system
+//             await emailTransforter.sendMail({
+//                 from: 'hassanabubakarmaiwada7@gmail.com',
+//                 to: `${email}`,
+//                 subject: 'verification code',
+//                 html: `   
+//                     <h1>One more step to verify your account to change password</h1>
+//                     <h2>Hi ${user.firstName}</h2>
+//                     <p>We got your request to change your pasword. Enter this code in the app::</p>
+//                     <button 
+//                         style="padding: 15px 350px; color: blue; font-size: 20px">
+//                            ${verificationCode}
+//                     </button>
+//                     <h3>Don't share this code with anyone.</h3>
+//                     <h3>If someone asks for this code</h3>
+//                     <p>Don't share this code with anyone, especially if they tell you they work for our Facebook or Meta. They may be trying to hack your account.</p>
+//                     <h2>Thanks,</h2>
+//                     <h2>Facebook Security</h2>
+//                     <h2>For more information contact us <a href="https://personal-portfolio-tau-jade.vercel.app/">
+//   Visit our support page
+// </a>
+//                 `
 
-            });
+//             });
 
+await sendVerificationEmail(
+    email,
+     'verification code',
+     `<h1>One more step to verify your account to change password</h1>
+//                     <h2>Hi ${user.firstName}</h2>
+//                     <p>We got your request to change your pasword. Enter this code in the app::</p>
+//                     <button 
+//                         style="padding: 15px 350px; color: blue; font-size: 20px">
+//                            ${verificationCode}
+//                     </button>
+//                     <h3>Don't share this code with anyone.</h3>
+//                     <h3>If someone asks for this code</h3>
+//                     <p>Don't share this code with anyone, especially if they tell you they work for our Facebook or Meta. They may be trying to hack your account.</p>
+//                     <h2>Thanks,</h2>
+//                     <h2>Facebook Security</h2>
+//                     <h2>For more information contact us <a href="https://personal-portfolio-tau-jade.vercel.app/">
+//   Visit our support page
+// </a>`
+
+)
             res.status(200).json({
                 status: 'success',
                 message: `welcome ${user.firstName} check your email we've sended you verification code`

@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import User from '../model/user.js';
 import bcrypt from 'bcryptjs';
 import Profile from '../model/profile.js';
+import dotenv from 'dotenv';
 
 dotenv.config();
 
@@ -17,13 +18,14 @@ export  const createAdmin =  async () => {
             surName: 'Fullstack',
             dateOfBirth: '2004-02-03',
             email: adminEmail,
+            gender: 'male',
             password: hashAdminPassword,
             isVerify: true,
             role: 'admin'
         });
 
          await Profile.create({
-                image: 'https://res.cloudinary.com/dxcrzy2ea/image/upload/v1763111653/abater_ps87oa.png',
+                image: process.env.AVATER_MALE_PROFIL,
                 userId: admin.id,
               });
         console.log('Admin user created successfully!');

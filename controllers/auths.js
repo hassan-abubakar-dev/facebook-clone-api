@@ -169,7 +169,7 @@ export const loggingUser = async (req, res, next) => {
     try {
         const { email, password } = req.body;
         const existingUser = await User.findOne({ where: { email } });
-        console.log(email, password);
+   
         
         if (!existingUser) {
             return next(new AppError('user is not found create new account', 400));

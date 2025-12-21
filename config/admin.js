@@ -25,7 +25,7 @@ export  const createAdmin =  async () => {
         });
 
          await Profile.create({
-                image: process.env.AVATER_MALE_PROFIL,
+                image: process.env.AVATER_MALE_PROFILE,
                 userId: admin.id,
               });
         console.log('Admin user created successfully!');

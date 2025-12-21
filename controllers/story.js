@@ -1,6 +1,7 @@
 import cloudinary from "../config/cloudinary.js";
 import CoverPhoto from "../model/coverPhoto.js";
 import Friendship from "../model/frienship.js";
+import Post from "../model/post.js";
 import Profile from "../model/profile.js";
 import Story from "../model/story.js";
 import User from "../model/user.js";
@@ -109,6 +110,9 @@ export const getAllFriendStories = async (req, res, next) => {
                         {
                             model: CoverPhoto, as: 'coverPhoto',
                             attributes: ['image']
+                        },
+                        {
+                           model: Post
                         }
                     ]
                 }

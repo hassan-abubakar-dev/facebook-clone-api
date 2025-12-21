@@ -159,7 +159,7 @@ export const requestNewVerificationCode = async (req, res, next) => {
         //     return next(new AppError('this account is already verify, no need to request new code', 400))
         // } it has to be like this but i need to share this function to requet new code for change password
 
-        await verificationCode.destroy({ where: { userEmail: email } });
+        await VerificationCode.destroy({ where: { userEmail: email } });
 
         const verificationCode = generateVerificationCode();
         const expiryTime = generateExpiryTime();

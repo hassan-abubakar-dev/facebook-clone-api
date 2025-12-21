@@ -97,14 +97,14 @@ export const registerUser = async (req, res, next) => {
 
         } catch (emailErr) {
             await t.rollback(); // rollback if email fails
-            console.error(emailErr);
+            console.error('emailErr', emailErr);
             return next(new AppError(`Failed to send verification email. Please try again. ${emailErr}`, 400));
         }
 
     } catch (error) {
         await t.rollback();
         console.error(error);
-        next(new AppError('Registration failed. Please try again.', 500));
+        next(new AppError(`Registration failed. Please try again.  ${error}`, 500));
     }
 };
 

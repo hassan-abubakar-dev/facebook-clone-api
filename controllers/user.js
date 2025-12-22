@@ -52,10 +52,10 @@ export const getUsers = async(req, res, next) => {
                 return {
                     [Op.or]: [
                         {
-                            firstName: {[Op.like]: `%${word}%`}
+                            firstName: {[Op.iLike]: `%${word}%`}
                         },
                         {
-                            surName: {[Op.like]: `%${word}%`}
+                            surName: {[Op.iLike]: `%${word}%`}
                         }
                     ]
                 }

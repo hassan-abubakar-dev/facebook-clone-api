@@ -1,6 +1,6 @@
 import cors from 'cors';
 
-const allowOrigins = ['http://localhost:5173', 'https://facebook-clone-frontend-psi.vercel.app']; 
+const allowOrigins = ['http://localhost:5173', 'https://social-media-clone-ecru.vercel.app']; 
 
 const corOptions = cors({
     origin: (origin, cb) => {
